@@ -4,10 +4,10 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 const navItems = [
+  { href: '#news', label: '新着情報' },
   { href: '#about', label: 'デジタル推進局とは' },
   { href: '#activities', label: '活動内容' },
   { href: '#members', label: 'メンバー' },
-  { href: '#news', label: '新着情報' },
   { href: '#contact', label: 'お問い合わせ' },
 ];
 

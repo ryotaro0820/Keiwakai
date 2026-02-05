@@ -16,10 +16,10 @@ export default async function Home() {
   return (
     <>
       <Hero />
+      <NewsSection news={newsResponse.contents} />
       <About />
       <Activities />
       <Members members={membersResponse.contents} />
-      <NewsSection news={newsResponse.contents} />
       <Contact />
     </>
   );

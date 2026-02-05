@@ -38,7 +38,7 @@ export default function Members({ members }: MembersProps) {
 
               {/* Member Info */}
               <div className="p-6">
-                <p className="text-[#0056b3] text-sm font-medium mb-1">{member.position}</p>
+                {member.position && <p className="text-[#0056b3] text-sm font-medium mb-1">{member.position}</p>}
                 <h3 className="text-lg font-bold text-gray-900 mb-3">{member.name}</h3>
                 <p className="text-gray-600 text-sm leading-relaxed">{member.comment}</p>
               </div>
