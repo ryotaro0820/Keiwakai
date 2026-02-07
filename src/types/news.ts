@@ -7,6 +7,7 @@ export type News = {
   category: NewsCategory;
   publishedAt: string;
   content?: string;
+  link?: string;
   createdAt: string;
   updatedAt: string;
 };

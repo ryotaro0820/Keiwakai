@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -19,12 +20,16 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-[#0056b3] rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">K</span>
-            </div>
+          <Link href="/" className="flex items-center gap-3">
+            <Image
+              src="/images/logo.png"
+              alt="デジタル推進局ロゴ"
+              width={40}
+              height={40}
+              className="w-10 h-10 object-contain"
+            />
             <div className="hidden sm:block">
-              <p className="text-[#0056b3] font-bold text-sm leading-tight">敬和会</p>
+              <p className="text-[#0056b3] font-bold text-sm leading-tight">社会医療法人敬和会</p>
               <p className="text-gray-700 text-xs">デジタル推進局</p>
             </div>
           </Link>

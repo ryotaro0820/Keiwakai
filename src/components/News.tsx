@@ -37,11 +37,8 @@ export default function NewsSection({ news }: NewsProps) {
         {/* News List */}
         <div className="max-w-3xl mx-auto">
           <div className="divide-y divide-gray-100">
-            {news.map((item) => (
-              <article
-                key={item.id}
-                className="py-6 first:pt-0 last:pb-0 group"
-              >
+            {news.map((item) => {
+              const content = (
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                   {/* Date & Category */}
                   <div className="flex items-center gap-3 sm:w-48 flex-shrink-0">
@@ -56,12 +53,34 @@ export default function NewsSection({ news }: NewsProps) {
                   </div>
 
                   {/* Title */}
-                  <h3 className="flex-1 text-gray-900 font-medium group-hover:text-[#0056b3] transition-colors">
+                  <h3 className="flex-1 text-gray-900 font-medium group-hover:text-[#0056b3] transition-colors flex items-center gap-2">
                     {item.title}
+                    {item.link && (
+                      <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    )}
                   </h3>
                 </div>
-              </article>
-            ))}
+              );
+
+              return item.link ? (
+                <Link
+                  key={item.id}
+                  href={item.link}
+                  className="block py-6 first:pt-0 last:pb-0 group hover:bg-gray-50 -mx-4 px-4 rounded-lg transition-colors"
+                >
+                  {content}
+                </Link>
+              ) : (
+                <article
+                  key={item.id}
+                  className="py-6 first:pt-0 last:pb-0 group"
+                >
+                  {content}
+                </article>
+              );
+            })}
           </div>
         </div>
 

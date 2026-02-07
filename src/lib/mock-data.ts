@@ -53,6 +53,7 @@ export const mockNews: News[] = [
     category: 'イベント',
     publishedAt: '2026-01-28T10:00:00.000Z',
     content: '第2回ヘルスケアDXカンファレンスを開催いたします。医療・介護現場におけるデジタル活用の最新事例を共有する場として、皆様のご参加をお待ちしております。',
+    link: '/conference',
     createdAt: '2026-01-28T10:00:00.000Z',
     updatedAt: '2026-01-28T10:00:00.000Z',
   },
