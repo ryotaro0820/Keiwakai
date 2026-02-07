@@ -2,41 +2,25 @@ import Link from 'next/link';
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0056b3] via-[#0066cc] to-[#0077e6] overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-0 left-0 w-full h-full">
-          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <defs>
-              <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
-                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" strokeWidth="0.5" />
-              </pattern>
-            </defs>
-            <rect width="100" height="100" fill="url(#grid)" />
-          </svg>
-        </div>
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0056b3] via-[#0077cc] to-[#00a6ec]">
+      {/* Background Elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-[10%] left-[5%] w-64 h-64 bg-white/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-[20%] right-[10%] w-80 h-80 bg-white/5 rounded-full blur-3xl" />
       </div>
 
-      {/* Floating Elements */}
-      <div className="absolute top-20 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl animate-pulse" />
-      <div className="absolute bottom-20 right-10 w-32 h-32 bg-white/10 rounded-full blur-xl animate-pulse delay-1000" />
-      <div className="absolute top-1/3 right-1/4 w-16 h-16 bg-white/5 rounded-full blur-lg animate-pulse delay-500" />
-
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-8 text-center">
         <div className="space-y-8">
           {/* Organization Badge */}
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 text-white/90 text-sm">
-            <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-            社会医療法人敬和会
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
+            <span className="text-white/90 text-sm font-medium">社会医療法人敬和会</span>
           </div>
 
           {/* Main Heading */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
             <span className="block">医療の未来を、</span>
-            <span className="block bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
-              デジタルで拓く
-            </span>
+            <span className="block mt-2">デジタルで拓く</span>
           </h1>
 
           {/* Subheading */}
@@ -50,7 +34,7 @@ export default function Hero() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
             <Link
               href="#about"
-              className="inline-flex items-center justify-center px-8 py-4 bg-white text-[#0056b3] font-semibold rounded-lg hover:bg-blue-50 transition-colors shadow-lg hover:shadow-xl"
+              className="inline-flex items-center justify-center px-8 py-4 bg-white text-[#0056b3] font-semibold rounded-lg shadow-lg hover:shadow-xl hover:bg-gray-50 transition-all"
             >
               私たちについて
               <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -59,7 +43,7 @@ export default function Hero() {
             </Link>
             <Link
               href="#contact"
-              className="inline-flex items-center justify-center px-8 py-4 bg-transparent text-white font-semibold rounded-lg border-2 border-white/50 hover:bg-white/10 transition-colors"
+              className="inline-flex items-center justify-center px-8 py-4 bg-transparent text-white font-semibold rounded-lg border-2 border-white/50 hover:bg-white/10 transition-all"
             >
               お問い合わせ
             </Link>

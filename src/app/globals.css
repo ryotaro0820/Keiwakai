@@ -4,6 +4,7 @@
   --background: #ffffff;
   --foreground: #171717;
   --primary: #0056b3;
+  --primary-light: #00a6ec;
   --primary-dark: #003d7a;
 }
 
@@ -19,6 +20,8 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Meiryo", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Smooth scroll */
@@ -29,4 +32,16 @@ html {
 /* Anchor offset for fixed header */
 section[id] {
   scroll-margin-top: 80px;
+}
+
+/* Selection color */
+::selection {
+  background: rgba(0, 86, 179, 0.2);
+  color: inherit;
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
