@@ -2,47 +2,48 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  // 本番環境では認証をスキップ（BASIC_AUTH_USERが設定されていない場合）
+  // 本番環境では認証をスキップ
   const basicAuthUser = process.env.BASIC_AUTH_USER;
   const basicAuthPassword = process.env.BASIC_AUTH_PASSWORD;
 
-  // 認証情報が設定されていなければスキップ
   if (!basicAuthUser || !basicAuthPassword) {
     return NextResponse.next();
   }
 
-  // Basic認証のチェック
+  // 静的ファイルはスキップ
+  const pathname = request.nextUrl.pathname;
+  if (
+    pathname.startsWith('/_next') ||
+    pathname.startsWith('/api') ||
+    pathname.includes('.') // ファイル拡張子があるもの
+  ) {
+    return NextResponse.next();
+  }
+
   const authHeader = request.headers.get('authorization');
 
-  if (!authHeader || !authHeader.startsWith('Basic ')) {
-    return new NextResponse('Authentication required', {
-      status: 401,
-      headers: {
-        'WWW-Authenticate': 'Basic realm="Secure Area"',
-      },
-    });
-  }
+  if (authHeader) {
+    try {
+      const encoded = authHeader.split(' ')[1];
+      const decoded = Buffer.from(encoded, 'base64').toString('utf-8');
+      const [username, password] = decoded.split(':');
 
-  try {
-    const encoded = authHeader.split(' ')[1];
-    const decoded = Buffer.from(encoded, 'base64').toString('utf-8');
-    const [username, password] = decoded.split(':');
-
-    if (username === basicAuthUser && password === basicAuthPassword) {
-      return NextResponse.next();
+      if (username === basicAuthUser && password === basicAuthPassword) {
+        return NextResponse.next();
+      }
+    } catch {
+      // ignore
     }
-  } catch {
-    // デコードエラー
   }
 
-  return new NextResponse('Invalid credentials', {
+  return new NextResponse('Authentication required', {
     status: 401,
     headers: {
-      'WWW-Authenticate': 'Basic realm="Secure Area"',
+      'WWW-Authenticate': 'Basic realm="Keiwakai Test"',
     },
   });
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+  matcher: ['/', '/news'],
 };
