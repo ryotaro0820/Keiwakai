@@ -2,16 +2,20 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  // 本番環境では認証をスキップ
-  if (process.env.VERCEL_ENV === 'production') {
+  // 本番環境では認証をスキップ（BASIC_AUTH_USERが設定されていない場合）
+  const basicAuthUser = process.env.BASIC_AUTH_USER;
+  const basicAuthPassword = process.env.BASIC_AUTH_PASSWORD;
+
+  // 認証情報が設定されていなければスキップ
+  if (!basicAuthUser || !basicAuthPassword) {
     return NextResponse.next();
   }
 
   // Basic認証のチェック
   const authHeader = request.headers.get('authorization');
 
-  if (!authHeader) {
-    return new NextResponse('認証が必要です', {
+  if (!authHeader || !authHeader.startsWith('Basic ')) {
+    return new NextResponse('Authentication required', {
       status: 401,
       headers: {
         'WWW-Authenticate': 'Basic realm="Secure Area"',
@@ -19,34 +23,24 @@ export function middleware(request: NextRequest) {
     });
   }
 
-  const [scheme, encoded] = authHeader.split(' ');
+  try {
+    const encoded = authHeader.split(' ')[1];
+    const decoded = Buffer.from(encoded, 'base64').toString('utf-8');
+    const [username, password] = decoded.split(':');
 
-  if (scheme !== 'Basic' || !encoded) {
-    return new NextResponse('認証が必要です', {
-      status: 401,
-      headers: {
-        'WWW-Authenticate': 'Basic realm="Secure Area"',
-      },
-    });
+    if (username === basicAuthUser && password === basicAuthPassword) {
+      return NextResponse.next();
+    }
+  } catch {
+    // デコードエラー
   }
 
-  const decoded = atob(encoded);
-  const [username, password] = decoded.split(':');
-
-  // 環境変数から認証情報を取得
-  const validUsername = process.env.BASIC_AUTH_USER || 'admin';
-  const validPassword = process.env.BASIC_AUTH_PASSWORD || 'password';
-
-  if (username !== validUsername || password !== validPassword) {
-    return new NextResponse('認証に失敗しました', {
-      status: 401,
-      headers: {
-        'WWW-Authenticate': 'Basic realm="Secure Area"',
-      },
-    });
-  }
-
-  return NextResponse.next();
+  return new NextResponse('Invalid credentials', {
+    status: 401,
+    headers: {
+      'WWW-Authenticate': 'Basic realm="Secure Area"',
+    },
+  });
 }
 
 export const config = {
