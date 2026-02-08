@@ -39,24 +39,24 @@ export default function NewsSection({ news }: NewsProps) {
           <div className="divide-y divide-gray-100">
             {news.map((item) => {
               const content = (
-                <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                  {/* Date & Category */}
-                  <div className="flex items-center gap-3 sm:w-48 flex-shrink-0">
-                    <time className="text-gray-500 text-sm" dateTime={item.publishedAt}>
-                      {formatDate(item.publishedAt)}
-                    </time>
-                    <span
-                      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${categoryColors[item.category] || 'bg-gray-100 text-gray-700'}`}
-                    >
-                      {item.category}
-                    </span>
-                  </div>
+                <div className="flex items-center gap-3">
+                  {/* Date */}
+                  <time className="text-gray-500 text-sm whitespace-nowrap flex-shrink-0" dateTime={item.publishedAt}>
+                    {formatDate(item.publishedAt)}
+                  </time>
+
+                  {/* Category */}
+                  <span
+                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0 ${categoryColors[item.category] || 'bg-gray-100 text-gray-700'}`}
+                  >
+                    {item.category}
+                  </span>
 
                   {/* Title */}
-                  <h3 className="flex-1 text-gray-900 font-medium group-hover:text-[#0056b3] transition-colors flex items-center gap-2">
-                    {item.title}
+                  <h3 className="flex-1 text-gray-900 font-medium group-hover:text-[#0056b3] transition-colors flex items-center gap-2 min-w-0">
+                    <span className="truncate">{item.title}</span>
                     {item.link && (
-                      <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
                     )}
